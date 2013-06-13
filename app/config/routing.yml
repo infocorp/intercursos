@@ -1,0 +1,5 @@
+infocorp_news:
+    resource: "@InfocorpNewsBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
