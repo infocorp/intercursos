@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: @InfocorpGaleryVideosBundle/Resources/config/admin.yml }
 
 framework:
     #esi:             ~
@@ -73,3 +74,46 @@ sonata_block:
 
         sonata.block.service.text:
         sonata.block.service.rss:
+
+sonata_admin:
+    title:      Intercursos
+    title_logo: /bundles/sonataadmin/logo_title.png
+    templates:
+        # default global templates
+        layout:  SonataAdminBundle::standard_layout.html.twig
+        ajax:    SonataAdminBundle::ajax_layout.html.twig
+
+        # default actions templates, should extend a global templates
+        list:    SonataAdminBundle:CRUD:list.html.twig
+        show:    SonataAdminBundle:CRUD:show.html.twig
+        edit:    SonataAdminBundle:CRUD:edit.html.twig
+
+    dashboard:
+        blocks:
+            # display a dashboard block
+            - { position: left, type: sonata.admin.block.admin_list }
+
+        groups:
+            galery:
+                label: Galerias
+                items:
+                    - sonata.admin.galery.video
+
+    security:
+        handler: sonata.admin.security.handler.role
+        information:
+            EDIT: EDIT
+            LIST: LIST
+            CREATE: CREATE
+            VIEW: VIEW
+            DELETE: DELETE
+            EXPORT: EXPORT
+            OPERATOR: OPERATOR
+            MASTER: MASTER
+
+services:
+    sonata.admin.galery.video:
+        class: Infocorp\Galery\VideosBundle\Admin\VideoGaleryAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: galery, label: Galeria de videos }
+        arguments: [null, Infocorp\Galery\VideosBundle\Entity\VideoGalery, InfocorpGaleryVideosBundle:VideoGaleryAdmin]

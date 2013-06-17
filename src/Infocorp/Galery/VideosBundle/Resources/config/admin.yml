@@ -1,0 +1,9 @@
+services:
+    sonata.admin.galery.video:
+        class: Infocorp\Galery\VideosBundle\Admin\VideoGaleryAdmin
+        tags:
+            - { name: sonata.admin.galery.video, manager_type: orm, group: galery, label: "Galeria de videos" }
+        arguments:
+            - ~
+            - Infocorp\Galery\VideosBundle\Entity\VideoGalery
+            - 'SonataAdminBundle:CRUD'
